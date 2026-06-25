@@ -184,3 +184,47 @@ hr.divider {
 .announce.stale {
   opacity: 0.5;
 }
+
+/* ── Slides table ── */
+.slides-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.slides-list tr {
+  border-bottom: 1px solid var(--divider);
+}
+
+.slides-list tr:last-child {
+  border-bottom: none;
+}
+
+.slides-list td {
+  padding: 0.75rem 0;
+  font-size: 0.82rem;
+  vertical-align: middle;
+}
+
+.slides-list .week-label {
+  color: var(--muted);
+  font-size: 0.7rem;
+  width: 56px;
+}
+
+.slides-list .dl-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  display: block;
+  text-align: right;
+}
+
+.slides-list .dl-link:hover {
+  text-decoration: underline;
+}
+
+.slides-list tr.past td {
+  opacity: 0.4;
+}
