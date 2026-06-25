@@ -292,6 +292,67 @@ hr.divider {
   margin-top: 0.2rem;
 }
 
+/* ── Easter Eggs ── */
+
+/* 1. Photo spin + saber glow */
+.hero-photo { cursor: pointer; }
+
+@keyframes eg-spin-glow {
+  0%   { transform: rotate(0deg)   scale(1);    filter: drop-shadow(0 0 0px #cc0000); }
+  40%  { transform: rotate(200deg) scale(1.12); filter: drop-shadow(0 0 20px #ff2200) drop-shadow(0 0 40px #ff000088); }
+  100% { transform: rotate(360deg) scale(1);    filter: drop-shadow(0 0 0px #cc0000); }
+}
+.hero-photo.eg-spinning {
+  animation: eg-spin-glow 1.8s cubic-bezier(.4, 0, .2, 1) forwards;
+  overflow: visible;
+  border-radius: 6px;
+}
+
+@keyframes eg-quote-pop {
+  0%   { opacity: 0; transform: translateY(6px); }
+  15%  { opacity: 1; transform: translateY(0); }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+.eg-quote {
+  font-style: italic;
+  font-size: 0.78rem;
+  color: var(--accent);
+  margin-top: 0.75rem;
+  animation: eg-quote-pop 2.4s ease forwards;
+  pointer-events: none;
+}
+
+/* 2. Sidebar name glitch */
+@keyframes eg-glitch {
+  0%   { transform: translate(0);         filter: none; }
+  14%  { transform: translate(-5px, 2px); filter: hue-rotate(90deg)  saturate(5) brightness(1.4); }
+  28%  { transform: translate(5px, -2px); filter: hue-rotate(230deg) saturate(5) brightness(0.8); }
+  42%  { transform: translate(-4px, 3px); filter: hue-rotate(0deg)   brightness(2); }
+  57%  { transform: translate(4px, -3px); filter: hue-rotate(150deg) saturate(4); }
+  71%  { transform: translate(-2px, 1px); filter: hue-rotate(300deg) saturate(3); }
+  85%  { transform: translate(2px, -1px); filter: hue-rotate(60deg)  saturate(2); }
+  100% { transform: translate(0);         filter: none; }
+}
+.layout.eg-glitch {
+  animation: eg-glitch 0.09s steps(1) 8;
+}
+
+/* 3. Frog rain */
+@keyframes eg-frog-fall {
+  0%   { transform: translateY(-80px) rotate(-20deg); opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateY(108vh)  rotate(40deg);  opacity: 0; }
+}
+.eg-frog {
+  position: fixed;
+  top: 0;
+  pointer-events: none;
+  z-index: 9999;
+  user-select: none;
+  animation: eg-frog-fall linear forwards;
+}
+
 /* ── Resources ── */
 .resource-item {
   display: flex;

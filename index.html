@@ -111,5 +111,66 @@
 
     </main>
   </div>
+  <script>
+  (function () {
+    // ── Easter Egg 1 (Easy): Click the photo ──────────────────────────────
+    var photoBox = document.querySelector('.hero-photo');
+    if (photoBox) {
+      photoBox.addEventListener('click', function () {
+        if (photoBox.classList.contains('eg-spinning')) return;
+        photoBox.classList.add('eg-spinning');
+        var quote = document.createElement('p');
+        quote.className = 'eg-quote';
+        quote.textContent = '"Do. Or do not. There is no section."';
+        photoBox.closest('.hero-row').insertAdjacentElement('afterend', quote);
+        setTimeout(function () {
+          photoBox.classList.remove('eg-spinning');
+          quote.remove();
+        }, 2400);
+      });
+    }
+
+    // ── Easter Egg 2 (Medium): Click sidebar name 5× fast ─────────────────
+    var nameEl = document.querySelector('.sidebar-name');
+    var clickCount = 0, clickTimer;
+    if (nameEl) {
+      nameEl.addEventListener('click', function () {
+        clickCount++;
+        clearTimeout(clickTimer);
+        clickTimer = setTimeout(function () { clickCount = 0; }, 1200);
+        if (clickCount >= 5) {
+          clickCount = 0;
+          var layout = document.querySelector('.layout');
+          layout.classList.add('eg-glitch');
+          setTimeout(function () { layout.classList.remove('eg-glitch'); }, 900);
+        }
+      });
+    }
+
+    // ── Easter Egg 3 (Hard): Konami code → frog rain ──────────────────────
+    var SEQ = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    var ki = 0;
+    document.addEventListener('keydown', function (e) {
+      ki = (e.key === SEQ[ki]) ? ki + 1 : (e.key === SEQ[0] ? 1 : 0);
+      if (ki === SEQ.length) {
+        ki = 0;
+        for (var i = 0; i < 30; i++) {
+          (function (i) {
+            setTimeout(function () {
+              var f = document.createElement('span');
+              f.className = 'eg-frog';
+              f.textContent = '🐸';
+              f.style.left = (Math.random() * 96) + 'vw';
+              f.style.fontSize = (1 + Math.random() * 1.4) + 'rem';
+              f.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+              document.body.appendChild(f);
+              setTimeout(function () { f.remove(); }, 4000);
+            }, i * 65);
+          })(i);
+        }
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
