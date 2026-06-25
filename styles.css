@@ -228,3 +228,37 @@ hr.divider {
 .slides-list tr.past td {
   opacity: 0.4;
 }
+
+/* ── Office Hours ── */
+.oh-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.oh-card {
+  background: var(--card-bg);
+  border: 1px solid var(--divider);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+}
+
+.oh-day {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+
+.oh-time {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1rem;
+  color: var(--body-text);
+}
+
+.oh-loc {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
