@@ -31,9 +31,9 @@ Fixed dark sidebar + scrollable main content area.
 
 **Sidebar (200px, fixed):**
 - Name: Ruben Carrazco (Libre Baskerville serif, bold)
-- Course tag: CS106B · Section 14 (uppercase, muted)
+- Course tag: CS106B · Section [#] (uppercase, muted) — *section number TBD*
 - Navigation links: Welcome · Announcements · Slides & Handouts · Office Hours · Resources
-- Bottom meta: section time and room
+- Bottom meta: Fri · 10:30 AM · CoDa B42
 
 **Main content (fluid, left-offset by sidebar width):**
 - Max-width ~760px for comfortable reading
@@ -78,7 +78,7 @@ Fixed dark sidebar + scrollable main content area.
 
 - Public GitHub repo (name TBD, e.g. `cs106b-section`)
 - GitHub Pages deployed from `main` branch, root directory
-- URL: `https://<github-username>.github.io/cs106b-section/`
+- URL: `https://rcarrz04.github.io/cs106b-section/`
 - No CI, no build pipeline — push to `main` = live
 
 ---
