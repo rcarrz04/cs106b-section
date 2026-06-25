@@ -29,3 +29,66 @@ html, body {
   display: flex;
   min-height: 100vh;
 }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-name {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FAFAF8;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+}
+
+.sidebar-course {
+  font-size: 0.7rem;
+  color: var(--sidebar-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 2.5rem;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  flex: 1;
+}
+
+.nav-link {
+  font-size: 0.78rem;
+  color: var(--sidebar-muted);
+  text-decoration: none;
+  padding: 0.35rem 0;
+  transition: color 0.15s;
+}
+.nav-link:hover { color: var(--sidebar-text); }
+.nav-link.active { color: var(--sidebar-text); font-weight: 500; }
+
+.sidebar-meta {
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: 1px solid #292524;
+  font-size: 0.68rem;
+  color: var(--sidebar-muted);
+  line-height: 1.9;
+}
+
+/* ── Main content area (offset by sidebar) ── */
+.main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  padding: 3rem 3.5rem;
+  max-width: 760px;
+}
