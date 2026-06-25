@@ -298,14 +298,13 @@ hr.divider {
 .hero-photo { cursor: pointer; }
 
 @keyframes eg-spin-glow {
-  0%   { transform: rotate(0deg)   scale(1);    filter: drop-shadow(0 0 0px #cc0000); }
-  40%  { transform: rotate(200deg) scale(1.12); filter: drop-shadow(0 0 20px #ff2200) drop-shadow(0 0 40px #ff000088); }
-  100% { transform: rotate(360deg) scale(1);    filter: drop-shadow(0 0 0px #cc0000); }
+  0%   { transform: rotate(0deg)   scale(1);    box-shadow: 0 0 0   0   transparent; }
+  40%  { transform: rotate(200deg) scale(1.15); box-shadow: 0 0 32px 12px rgba(210,20,0,.75), 0 0 64px 24px rgba(210,20,0,.3); }
+  100% { transform: rotate(360deg) scale(1);    box-shadow: 0 0 0   0   transparent; }
 }
 .hero-photo.eg-spinning {
   animation: eg-spin-glow 1.8s cubic-bezier(.4, 0, .2, 1) forwards;
   overflow: visible;
-  border-radius: 6px;
 }
 
 @keyframes eg-quote-pop {
@@ -335,7 +334,7 @@ hr.divider {
   100% { transform: translate(0);         filter: none; }
 }
 .layout.eg-glitch {
-  animation: eg-glitch 0.09s steps(1) 8;
+  animation: eg-glitch 0.65s steps(7, end) forwards;
 }
 
 /* 3. Frog rain */
@@ -350,7 +349,9 @@ hr.divider {
   pointer-events: none;
   z-index: 9999;
   user-select: none;
-  animation: eg-frog-fall linear forwards;
+  animation-name: eg-frog-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
 }
 
 /* ── Resources ── */
