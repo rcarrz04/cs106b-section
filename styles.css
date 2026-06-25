@@ -229,6 +229,35 @@ hr.divider {
   opacity: 0.4;
 }
 
+/* ── Pill buttons ── */
+.pill-group {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: flex-end;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-decoration: none;
+  transition: filter 0.12s;
+}
+
+.pill:hover { filter: brightness(0.93); }
+
+.pill-slides {
+  background: #FDE8C8;
+  color: #92400E;
+}
+
+.pill-handout {
+  background: #E7E5E4;
+  color: #57534E;
+}
+
 /* ── Office Hours ── */
 .oh-grid {
   display: grid;
