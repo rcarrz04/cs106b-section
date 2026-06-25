@@ -160,3 +160,27 @@ hr.divider {
   max-width: 380px;
   line-height: 1.65;
 }
+
+/* ── Announcements ── */
+.announce {
+  background: var(--tag-bg);
+  border-left: 2px solid var(--accent);
+  padding: 0.7rem 1rem;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 0.75rem;
+}
+
+.announce-text {
+  font-size: 0.82rem;
+  color: var(--tag-text);
+}
+
+.announce-date {
+  font-size: 0.68rem;
+  color: #A16207;
+  margin-top: 0.2rem;
+}
+
+.announce.stale {
+  opacity: 0.5;
+}
