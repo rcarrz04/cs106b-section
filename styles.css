@@ -2,6 +2,7 @@
 
 :root {
   --sidebar-w: 200px;
+  --panel-w: 260px;
   --bg: #FAFAF8;
   --sidebar-bg: #1C1917;
   --sidebar-text: #E7E5E4;
@@ -536,7 +537,7 @@ hr.divider {
   right: 0;
   top: 0;
   bottom: 0;
-  width: 260px;
+  width: var(--panel-w);
   background: var(--card-bg);
   border-left: 1px solid var(--divider);
   padding: 1.5rem 1rem;
@@ -576,7 +577,7 @@ body.feedback-open .feedback-panel {
 }
 
 body.feedback-open .feedback-tab {
-  right: 260px;
+  right: var(--panel-w);
 }
 
 /* ── Sidebar Feedback nav link indicator ── */
@@ -602,6 +603,7 @@ body.feedback-open .feedback-nav-link::after { content: ' ◀'; }
 }
 
 .panel-close:hover { color: var(--body-text); }
+.panel-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .panel-week-badge {
   display: inline-flex;
@@ -627,7 +629,7 @@ body.feedback-open .feedback-nav-link::after { content: ' ◀'; }
   display: block;
   font-size: 0.68rem;
   font-weight: 500;
-  color: #57534E;
+  color: var(--muted);
   margin-bottom: 4px;
 }
 
@@ -681,7 +683,7 @@ body.feedback-open .feedback-nav-link::after { content: ' ◀'; }
   width: 100%;
   padding: 0.45rem 0.75rem;
   background: #FDE8C8;
-  color: #92400E;
+  color: var(--tag-text);
   border: none;
   border-radius: 8px;
   font-family: 'IBM Plex Sans', sans-serif;
@@ -692,6 +694,7 @@ body.feedback-open .feedback-nav-link::after { content: ' ◀'; }
 
 .panel-submit:hover { filter: brightness(0.93); }
 .panel-submit:disabled { opacity: 0.6; cursor: not-allowed; filter: none; }
+.panel-submit:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .panel-anon-note {
   font-size: 0.6rem;
