@@ -184,11 +184,14 @@
               }, i * 30);
             })(i);
           }
+          var retroEl = document.createElement('div');
+          retroEl.className = 'retro-goal-border';
+          document.body.appendChild(retroEl);
           var goalEl = document.createElement('div');
           goalEl.className = 'goal-overlay';
           goalEl.innerHTML = '<div class="goal-text">⚽ GOAL!</div>';
           document.body.appendChild(goalEl);
-          setTimeout(function () { goalEl.remove(); }, 1800);
+          setTimeout(function () { goalEl.remove(); retroEl.remove(); }, 1800);
         }
       });
     }
@@ -220,11 +223,46 @@
     // ── Soccer field mode ─────────────────────────────────────────────────
     var soccerBtn = document.getElementById('soccer-btn');
     var wcOverlay = null;
-    var FIRST_NAMES = ['Ye','Natalia','Jack','Jada','Vivian','Pranoy','Haobin'];
-    var POSITIONS = [
-      {x:12,y:28},{x:37,y:28},{x:63,y:28},{x:88,y:28},
-      {x:25,y:68},{x:50,y:68},{x:75,y:68}
+
+    // Left team: Ruben (GK) + 7 students in 4-3 on left half
+    var LEFT_TEAM = [
+      {name:'Ruben', num:'GK', x:4,  y:50, gk:true},
+      {name:'Ye',    num:1,    x:20, y:14},
+      {name:'Natalia',num:2,   x:20, y:36},
+      {name:'Jack',  num:3,    x:20, y:64},
+      {name:'Jada',  num:4,    x:20, y:86},
+      {name:'Vivian',num:5,    x:37, y:26},
+      {name:'Pranoy',num:6,    x:37, y:50},
+      {name:'Haobin',num:7,    x:37, y:74}
     ];
+
+    // Right team: C++ concepts in 3-4 on right half (mirrored)
+    var RIGHT_TEAM = [
+      {name:'main()',    num:'GK', x:96, y:50, gk:true},
+      {name:'Recursion', num:1,    x:80, y:14},
+      {name:'Maps',      num:2,    x:80, y:36},
+      {name:'Vectors',   num:3,    x:80, y:64},
+      {name:'Pointers',  num:4,    x:80, y:86},
+      {name:'Templates', num:5,    x:63, y:26},
+      {name:'Stacks',    num:6,    x:63, y:50},
+      {name:'Trees',     num:7,    x:63, y:74}
+    ];
+
+    function makeJersey(player, opp) {
+      var jersey = document.createElement('div');
+      jersey.className = 'jersey';
+      jersey.style.left = player.x + '%';
+      jersey.style.top  = player.y + '%';
+      var shirt = document.createElement('div');
+      shirt.className = 'jersey-shirt' + (player.gk ? ' gk' : opp ? ' opp' : '');
+      shirt.textContent = player.num;
+      var label = document.createElement('div');
+      label.className = 'jersey-name';
+      label.textContent = player.name;
+      jersey.appendChild(shirt);
+      jersey.appendChild(label);
+      return jersey;
+    }
 
     function buildPitchOverlay() {
       var ov = document.createElement('div');
@@ -242,24 +280,8 @@
       circle.className = 'pitch-circle';
       pitch.appendChild(circle);
 
-      FIRST_NAMES.forEach(function (name, i) {
-        var jersey = document.createElement('div');
-        jersey.className = 'jersey';
-        jersey.style.left = POSITIONS[i].x + '%';
-        jersey.style.top  = POSITIONS[i].y + '%';
-
-        var shirt = document.createElement('div');
-        shirt.className = 'jersey-shirt';
-        shirt.textContent = i + 1;
-
-        var label = document.createElement('div');
-        label.className = 'jersey-name';
-        label.textContent = name;
-
-        jersey.appendChild(shirt);
-        jersey.appendChild(label);
-        pitch.appendChild(jersey);
-      });
+      LEFT_TEAM.forEach(function(p)  { pitch.appendChild(makeJersey(p, false)); });
+      RIGHT_TEAM.forEach(function(p) { pitch.appendChild(makeJersey(p, true));  });
 
       ov.appendChild(pitch);
 
