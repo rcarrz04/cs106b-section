@@ -230,6 +230,7 @@
     // ── Soccer field mode ─────────────────────────────────────────────────
     var soccerBtn = document.getElementById('soccer-btn');
     var wcOverlay = null;
+    var stopAnimation = null;
 
     // Left team: Ruben (GK) + 7 students in 4-3 on left half
     var LEFT_TEAM = [
@@ -288,9 +289,12 @@
       circle.className = 'pitch-circle';
       pitch.appendChild(circle);
 
-      LEFT_TEAM.forEach(function(p)  { pitch.appendChild(makeJersey(p, false)); });
-      RIGHT_TEAM.forEach(function(p) { pitch.appendChild(makeJersey(p, true));  });
+      var leftJerseys = LEFT_TEAM.map(function(p) {
+        var j = makeJersey(p, false); pitch.appendChild(j); return j;
+      });
+      RIGHT_TEAM.forEach(function(p) { pitch.appendChild(makeJersey(p, true)); });
 
+      stopAnimation = startPitchAnimation(pitch, leftJerseys);
       ov.appendChild(pitch);
 
       var hint = document.createElement('div');
@@ -304,7 +308,89 @@
       return ov;
     }
 
+    function startPitchAnimation(pitch, jerseys) {
+      var alive = true;
+      var ball = document.createElement('div');
+      ball.style.cssText = 'position:absolute;font-size:1rem;z-index:10;pointer-events:none;transform:translate(-50%,-50%);transition:none;';
+      ball.textContent = '⚽';
+      pitch.appendChild(ball);
+
+      // Pass sequence: ji = index into jerseys array (0=Ruben..7=Haobin), hold = ms before next pass
+      // ji:null + goal:true = shot on goal
+      var seq = [
+        {ji:0, x:4,  y:50, hold:700},   // Ruben (GK) has it
+        {ji:2, x:20, y:36, hold:550},   // → Natalia
+        {ji:5, x:37, y:26, hold:500},   // → Vivian
+        {ji:6, x:37, y:50, hold:450},   // → Pranoy
+        {ji:7, x:37, y:74, hold:450},   // → Haobin
+        {ji:3, x:20, y:64, hold:400},   // → Jack (overlap run)
+        {ji:6, x:44, y:48, hold:350},   // → Pranoy (advanced)
+        {ji:null, x:99, y:50, hold:1200, goal:true}  // SHOT!
+      ];
+
+      function pulse(ji) {
+        if (ji === null || !jerseys[ji]) return;
+        jerseys[ji].classList.add('jersey-pulse');
+        setTimeout(function() { jerseys[ji].classList.remove('jersey-pulse'); }, 380);
+      }
+
+      function moveBall(x, y) {
+        ball.style.transition = 'left 0.42s ease, top 0.42s ease';
+        ball.style.left = x + '%';
+        ball.style.top  = y + '%';
+      }
+
+      function runSeq() {
+        if (!alive) return;
+        var i = 0;
+        // Place ball at start instantly
+        ball.style.transition = 'none';
+        ball.style.left = seq[0].x + '%';
+        ball.style.top  = seq[0].y + '%';
+        ball.style.opacity = '1';
+        pulse(seq[0].ji);
+
+        function step() {
+          if (!alive) return;
+          i++;
+          if (i >= seq.length) return;
+          var p = seq[i];
+          moveBall(p.x, p.y);
+          pulse(p.ji);
+
+          if (p.goal) {
+            setTimeout(function() {
+              if (!alive) return;
+              ball.style.opacity = '0';
+              // Pulse entire left team
+              jerseys.forEach(function(j) {
+                j.classList.add('jersey-pulse');
+                setTimeout(function() { j.classList.remove('jersey-pulse'); }, 420);
+              });
+              // In-pitch GOAL label
+              var lbl = document.createElement('div');
+              lbl.className = 'pitch-goal-label';
+              lbl.textContent = '⚽ GOAL!';
+              pitch.appendChild(lbl);
+              setTimeout(function() {
+                if (!alive) return;
+                lbl.remove();
+                runSeq(); // loop
+              }, 1800);
+            }, 500);
+          } else {
+            setTimeout(step, p.hold);
+          }
+        }
+        setTimeout(step, seq[0].hold);
+      }
+
+      setTimeout(runSeq, 500);
+      return function() { alive = false; };
+    }
+
     function closeOverlay() {
+      if (stopAnimation) { stopAnimation(); stopAnimation = null; }
       if (wcOverlay) { wcOverlay.remove(); wcOverlay = null; }
     }
 
