@@ -82,7 +82,7 @@
         <div class="oh-grid">
           <div class="oh-card">
             <div class="oh-day">Friday</div>
-            <div class="oh-time">11:00 AM – 12:30 PM</div>
+            <div class="oh-time">10:30 – 11:20 AM</div>
             <div class="oh-loc">CoDa B42</div>
           </div>
         </div>
@@ -184,14 +184,11 @@
               }, i * 30);
             })(i);
           }
-          var retroEl = document.createElement('div');
-          retroEl.className = 'retro-goal-border';
-          document.body.appendChild(retroEl);
           var goalEl = document.createElement('div');
           goalEl.className = 'goal-overlay';
           goalEl.innerHTML = '<div class="goal-text">⚽ GOAL!</div>';
           document.body.appendChild(goalEl);
-          setTimeout(function () { goalEl.remove(); retroEl.remove(); }, 1800);
+          setTimeout(function () { goalEl.remove(); }, 1800);
         }
       });
     }
@@ -238,14 +235,14 @@
 
     // Right team: C++ concepts in 3-4 on right half (mirrored)
     var RIGHT_TEAM = [
-      {name:'main()',    num:'GK', x:96, y:50, gk:true},
-      {name:'Recursion', num:1,    x:80, y:14},
-      {name:'Maps',      num:2,    x:80, y:36},
-      {name:'Vectors',   num:3,    x:80, y:64},
-      {name:'Pointers',  num:4,    x:80, y:86},
-      {name:'Templates', num:5,    x:63, y:26},
-      {name:'Stacks',    num:6,    x:63, y:50},
-      {name:'Trees',     num:7,    x:63, y:74}
+      {name:'main()',    num:'GK', x:96, y:50, gk:true, color:'#7c3aed'},
+      {name:'Recursion', num:1,    x:80, y:14,           color:'#dc2626'},
+      {name:'Maps',      num:2,    x:80, y:36,           color:'#db2777'},
+      {name:'Vectors',   num:3,    x:80, y:64,           color:'#0891b2'},
+      {name:'Pointers',  num:4,    x:80, y:86,           color:'#ea580c'},
+      {name:'Queues',    num:5,    x:63, y:26,           color:'#4338ca'},
+      {name:'Stacks',    num:6,    x:63, y:50,           color:'#0d9488'},
+      {name:'Trees',     num:7,    x:63, y:74,           color:'#be185d'}
     ];
 
     function makeJersey(player, opp) {
@@ -254,7 +251,8 @@
       jersey.style.left = player.x + '%';
       jersey.style.top  = player.y + '%';
       var shirt = document.createElement('div');
-      shirt.className = 'jersey-shirt' + (player.gk ? ' gk' : opp ? ' opp' : '');
+      shirt.className = 'jersey-shirt' + (!opp && player.gk ? ' gk' : '');
+      if (player.color) shirt.style.background = player.color;
       shirt.textContent = player.num;
       var label = document.createElement('div');
       label.className = 'jersey-name';
