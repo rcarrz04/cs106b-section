@@ -512,6 +512,43 @@
     document.getElementById('panel-close-btn').addEventListener('click', togglePanel);
 
     initPanel();
+
+    document.getElementById('panel-submit-btn').addEventListener('click', function () {
+      var btn = document.getElementById('panel-submit-btn');
+      var topic = document.getElementById('topic-select').value;
+      var feedback = document.getElementById('anon-feedback').value.trim();
+      var weekData = getCurrentWeekData();
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      var body = new URLSearchParams();
+      body.append('week', weekData.week);
+      body.append('weekLabel', weekData.label);
+      body.append('topic', topic);
+      body.append('feedback', feedback);
+
+      fetch(FEEDBACK_ENDPOINT, { method: 'POST', body: body })
+        .then(function () {
+          document.getElementById('feedback-panel').innerHTML =
+            '<div class="panel-success">' +
+              '<div class="panel-success-icon">✓</div>' +
+              '<p>Thanks — got it.</p>' +
+            '</div>';
+        })
+        .catch(function () {
+          btn.disabled = false;
+          btn.textContent = 'Submit feedback →';
+          var existing = document.getElementById('panel-error');
+          if (!existing) {
+            var err = document.createElement('p');
+            err.id = 'panel-error';
+            err.className = 'panel-error';
+            err.textContent = 'Something went wrong — please try again.';
+            btn.insertAdjacentElement('afterend', err);
+          }
+        });
+    });
   })();
   </script>
 </body>
