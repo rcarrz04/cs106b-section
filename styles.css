@@ -161,19 +161,6 @@ hr.divider {
   line-height: 1.65;
 }
 
-.email-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-top: 0.75rem;
-  font-size: 0.82rem;
-  color: var(--muted);
-  text-decoration: none;
-  letter-spacing: 0.01em;
-  transition: color 0.15s;
-}
-.email-link:hover { color: var(--accent); }
-
 /* ── Announcements ── */
 .announce {
   background: var(--tag-bg);
