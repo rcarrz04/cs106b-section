@@ -495,9 +495,13 @@
       var weekData = getCurrentWeekData();
       document.getElementById('panel-week-label').textContent = weekData.label;
       var select = document.getElementById('topic-select');
-      select.innerHTML = weekData.topics.map(function (t) {
-        return '<option value="' + t + '">' + t + '</option>';
-      }).join('');
+      select.innerHTML = '';
+      weekData.topics.forEach(function (t) {
+        var opt = document.createElement('option');
+        opt.value = t;
+        opt.textContent = t;
+        select.appendChild(opt);
+      });
     }
 
     document.getElementById('feedback-tab').addEventListener('click', togglePanel);
