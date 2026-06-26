@@ -484,6 +484,31 @@
       });
     }
   })();
+
+  // ── Feedback Panel ─────────────────────────────────────────────────
+  (function () {
+    function togglePanel() {
+      document.body.classList.toggle('feedback-open');
+    }
+
+    function initPanel() {
+      var weekData = getCurrentWeekData();
+      document.getElementById('panel-week-label').textContent = weekData.label;
+      var select = document.getElementById('topic-select');
+      select.innerHTML = weekData.topics.map(function (t) {
+        return '<option value="' + t + '">' + t + '</option>';
+      }).join('');
+    }
+
+    document.getElementById('feedback-tab').addEventListener('click', togglePanel);
+    document.getElementById('feedback-nav-link').addEventListener('click', function (e) {
+      e.preventDefault();
+      togglePanel();
+    });
+    document.getElementById('panel-close-btn').addEventListener('click', togglePanel);
+
+    initPanel();
+  })();
   </script>
 </body>
 </html>
