@@ -294,62 +294,22 @@ hr.divider {
 
 /* ── Easter Eggs ── */
 
-/* 1. Photo spin + saber glow */
 .hero-photo { cursor: pointer; }
 
-@keyframes eg-spin-glow {
-  0%   { transform: rotate(0deg)   scale(1);    box-shadow: 0 0 0   0   transparent; }
-  40%  { transform: rotate(200deg) scale(1.15); box-shadow: 0 0 32px 12px rgba(210,20,0,.75), 0 0 64px 24px rgba(210,20,0,.3); }
-  100% { transform: rotate(360deg) scale(1);    box-shadow: 0 0 0   0   transparent; }
-}
-.hero-photo.eg-spinning {
-  animation: eg-spin-glow 1.8s cubic-bezier(.4, 0, .2, 1) forwards;
-  overflow: visible;
-}
 
-@keyframes eg-quote-pop {
-  0%   { opacity: 0; transform: translateY(6px); }
-  15%  { opacity: 1; transform: translateY(0); }
-  80%  { opacity: 1; }
-  100% { opacity: 0; }
-}
-.eg-quote {
-  font-style: italic;
-  font-size: 0.78rem;
-  color: var(--accent);
-  margin-top: 0.75rem;
-  animation: eg-quote-pop 2.4s ease forwards;
-  pointer-events: none;
-}
-
-/* 2. Sidebar name glitch */
-@keyframes eg-glitch {
-  0%   { transform: translate(0);         filter: none; }
-  14%  { transform: translate(-5px, 2px); filter: hue-rotate(90deg)  saturate(5) brightness(1.4); }
-  28%  { transform: translate(5px, -2px); filter: hue-rotate(230deg) saturate(5) brightness(0.8); }
-  42%  { transform: translate(-4px, 3px); filter: hue-rotate(0deg)   brightness(2); }
-  57%  { transform: translate(4px, -3px); filter: hue-rotate(150deg) saturate(4); }
-  71%  { transform: translate(-2px, 1px); filter: hue-rotate(300deg) saturate(3); }
-  85%  { transform: translate(2px, -1px); filter: hue-rotate(60deg)  saturate(2); }
-  100% { transform: translate(0);         filter: none; }
-}
-.layout.eg-glitch {
-  animation: eg-glitch 0.65s steps(7, end) forwards;
-}
-
-/* 3. Frog rain */
-@keyframes eg-frog-fall {
-  0%   { transform: translateY(-80px) rotate(-20deg); opacity: 1; }
+/* 3. Flag rain */
+@keyframes eg-flag-fall {
+  0%   { transform: translateY(-80px) rotate(-15deg); opacity: 1; }
   85%  { opacity: 1; }
-  100% { transform: translateY(108vh)  rotate(40deg);  opacity: 0; }
+  100% { transform: translateY(108vh) rotate(25deg); opacity: 0; }
 }
-.eg-frog {
+.eg-flag {
   position: fixed;
   top: 0;
   pointer-events: none;
   z-index: 9999;
   user-select: none;
-  animation-name: eg-frog-fall;
+  animation-name: eg-flag-fall;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
 }
@@ -387,4 +347,143 @@ hr.divider {
   font-size: 0.7rem;
   color: var(--muted);
   margin-top: 0.05rem;
+}
+
+/* ── World Cup 2026 Easter Eggs ── */
+
+/* Sidebar ⚽ trigger */
+.sidebar-soccer {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.15s;
+  user-select: none;
+}
+.sidebar-soccer:hover { opacity: 1; }
+
+/* EE2: GOAL! overlay */
+.goal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: goal-flash 1.8s ease forwards;
+}
+@keyframes goal-flash {
+  0%   { opacity: 0; }
+  10%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+.goal-text {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 5rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+
+/* Soccer field overlay */
+.wc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: #14532d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.wc-overlay-caption {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 1.75rem;
+}
+.pitch {
+  position: relative;
+  width: 520px;
+  height: 320px;
+  background: #16a34a;
+  border: 3px solid rgba(255,255,255,0.55);
+  border-radius: 4px;
+  cursor: default;
+}
+/* Halfway line */
+.pitch::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: rgba(255,255,255,0.45);
+}
+/* Center circle */
+.pitch-circle {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px; height: 80px;
+  border: 2px solid rgba(255,255,255,0.45);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.jersey {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  transform: translate(-50%, -50%);
+}
+.jersey-shirt {
+  width: 36px;
+  height: 40px;
+  background: var(--accent);
+  border-radius: 4px 4px 3px 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  position: relative;
+}
+.jersey-shirt::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 13px;
+  height: 6px;
+  background: #14532d;
+  border-radius: 0 0 6px 6px;
+}
+.jersey-name {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.58rem;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.wc-dismiss-hint {
+  margin-top: 1.5rem;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
 }

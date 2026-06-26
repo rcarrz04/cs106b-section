@@ -24,6 +24,7 @@
         Fri<br>
         10:30 – 11:20 AM<br>
         <span style="margin-top: 0.3rem; display: block;">CoDa B42</span>
+        <span class="sidebar-soccer" id="soccer-btn">⚽</span>
       </div>
     </aside>
     <main class="main">
@@ -124,22 +125,23 @@
   </div>
   <script>
   (function () {
-    // ── Easter Egg 1 (Easy): Click the photo → C++ snippet burst ─────────
+    var FLAGS = ['🇧🇷','🇦🇷','🇲🇽','🇺🇸','🇨🇦','🇩🇪','🇫🇷','🇵🇹','🇯🇵','🇰🇷','🇲🇦','🇸🇳'];
+
+    // ── EE1: Click photo → flag burst ─────────────────────────────────────
     var photoBox = document.querySelector('.hero-photo');
     if (photoBox) {
-      var snippets = ['int i=0;','cout<<','return 0;','#include','while(true)','O(log n)','push_back()','nullptr','std::','cin>>','for(;;)','vector<T>'];
       photoBox.addEventListener('click', function () {
         if (photoBox.classList.contains('eg-burst')) return;
         photoBox.classList.add('eg-burst');
         var rect = photoBox.getBoundingClientRect();
         var cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 12; i++) {
           (function (i) {
             var el = document.createElement('span');
-            el.textContent = snippets[Math.floor(Math.random() * snippets.length)];
-            var angle = (i / 10) * Math.PI * 2 + (Math.random() - 0.5) * 0.6;
-            var dist = 90 + Math.random() * 60;
-            el.style.cssText = 'position:fixed;font-family:monospace;font-size:0.8rem;font-weight:600;color:#f59e0b;pointer-events:none;z-index:9999;opacity:1;transition:left 1.1s ease-out,top 1.1s ease-out,opacity 1.1s ease-out;left:' + cx + 'px;top:' + cy + 'px;transform:translate(-50%,-50%);';
+            el.textContent = FLAGS[i];
+            var angle = (i / 12) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
+            var dist = 80 + Math.random() * 70;
+            el.style.cssText = 'position:fixed;font-size:1.4rem;pointer-events:none;z-index:9999;opacity:1;transition:left 1.1s ease-out,top 1.1s ease-out,opacity 1.1s ease-out;left:' + cx + 'px;top:' + cy + 'px;transform:translate(-50%,-50%);';
             document.body.appendChild(el);
             requestAnimationFrame(function () {
               requestAnimationFrame(function () {
@@ -155,7 +157,7 @@
       });
     }
 
-    // ── Easter Egg 2 (Medium): Click sidebar name 5× fast ─────────────────
+    // ── EE2: Sidebar name 5× → GOAL! + confetti ───────────────────────────
     var nameEl = document.querySelector('.sidebar-name');
     var clickCount = 0, clickTimer;
     if (nameEl) {
@@ -165,14 +167,33 @@
         clickTimer = setTimeout(function () { clickCount = 0; }, 1200);
         if (clickCount >= 5) {
           clickCount = 0;
-          var layout = document.querySelector('.layout');
-          layout.classList.add('eg-glitch');
-          setTimeout(function () { layout.classList.remove('eg-glitch'); }, 900);
+          var colors = ['#BF0A30', '#FFFFFF', '#006847'];
+          for (var i = 0; i < 40; i++) {
+            (function (i) {
+              setTimeout(function () {
+                var c = document.createElement('span');
+                c.style.cssText = 'position:fixed;pointer-events:none;z-index:10001;width:8px;height:8px;border-radius:2px;background:' + colors[i % 3] + ';left:' + (Math.random() * 100) + 'vw;top:-10px;transition:top 1.5s ease-in,opacity 1.5s ease-out;opacity:1;';
+                document.body.appendChild(c);
+                requestAnimationFrame(function () {
+                  requestAnimationFrame(function () {
+                    c.style.top = (50 + Math.random() * 45) + 'vh';
+                    c.style.opacity = '0';
+                  });
+                });
+                setTimeout(function () { c.remove(); }, 1600);
+              }, i * 30);
+            })(i);
+          }
+          var goalEl = document.createElement('div');
+          goalEl.className = 'goal-overlay';
+          goalEl.innerHTML = '<div class="goal-text">⚽ GOAL!</div>';
+          document.body.appendChild(goalEl);
+          setTimeout(function () { goalEl.remove(); }, 1800);
         }
       });
     }
 
-    // ── Easter Egg 3 (Hard): Konami code → frog rain ──────────────────────
+    // ── EE3: Konami code → flag rain ──────────────────────────────────────
     var SEQ = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
     var ki = 0;
     document.addEventListener('keydown', function (e) {
@@ -183,10 +204,10 @@
           (function (i) {
             setTimeout(function () {
               var f = document.createElement('span');
-              f.className = 'eg-frog';
-              f.textContent = '🐸';
+              f.className = 'eg-flag';
+              f.textContent = FLAGS[Math.floor(Math.random() * FLAGS.length)];
               f.style.left = (Math.random() * 96) + 'vw';
-              f.style.fontSize = (1 + Math.random() * 1.4) + 'rem';
+              f.style.fontSize = (1.2 + Math.random() * 1.2) + 'rem';
               f.style.animationDuration = (1.5 + Math.random() * 2) + 's';
               document.body.appendChild(f);
               setTimeout(function () { f.remove(); }, 4000);
@@ -195,6 +216,74 @@
         }
       }
     });
+
+    // ── Soccer field mode ─────────────────────────────────────────────────
+    var soccerBtn = document.getElementById('soccer-btn');
+    var wcOverlay = null;
+    var FIRST_NAMES = ['Ye','Natalia','Jack','Jada','Vivian','Pranoy','Haobin'];
+    var POSITIONS = [
+      {x:12,y:28},{x:37,y:28},{x:63,y:28},{x:88,y:28},
+      {x:25,y:68},{x:50,y:68},{x:75,y:68}
+    ];
+
+    function buildPitchOverlay() {
+      var ov = document.createElement('div');
+      ov.className = 'wc-overlay';
+
+      var caption = document.createElement('div');
+      caption.className = 'wc-overlay-caption';
+      caption.textContent = 'FIFA World Cup 2026 · Your Section';
+      ov.appendChild(caption);
+
+      var pitch = document.createElement('div');
+      pitch.className = 'pitch';
+
+      var circle = document.createElement('div');
+      circle.className = 'pitch-circle';
+      pitch.appendChild(circle);
+
+      FIRST_NAMES.forEach(function (name, i) {
+        var jersey = document.createElement('div');
+        jersey.className = 'jersey';
+        jersey.style.left = POSITIONS[i].x + '%';
+        jersey.style.top  = POSITIONS[i].y + '%';
+
+        var shirt = document.createElement('div');
+        shirt.className = 'jersey-shirt';
+        shirt.textContent = i + 1;
+
+        var label = document.createElement('div');
+        label.className = 'jersey-name';
+        label.textContent = name;
+
+        jersey.appendChild(shirt);
+        jersey.appendChild(label);
+        pitch.appendChild(jersey);
+      });
+
+      ov.appendChild(pitch);
+
+      var hint = document.createElement('div');
+      hint.className = 'wc-dismiss-hint';
+      hint.textContent = 'click to dismiss';
+      ov.appendChild(hint);
+
+      ov.addEventListener('click', function (e) {
+        if (!e.target.closest('.jersey')) closeOverlay();
+      });
+      return ov;
+    }
+
+    function closeOverlay() {
+      if (wcOverlay) { wcOverlay.remove(); wcOverlay = null; }
+    }
+
+    if (soccerBtn) {
+      soccerBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (wcOverlay) { closeOverlay(); } else { wcOverlay = buildPitchOverlay(); document.body.appendChild(wcOverlay); }
+      });
+    }
   })();
   </script>
 </body>
