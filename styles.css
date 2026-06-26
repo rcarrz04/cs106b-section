@@ -161,6 +161,15 @@ hr.divider {
   line-height: 1.65;
 }
 
+.email-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+.email-link:hover { text-decoration: underline; }
+
 /* ── Announcements ── */
 .announce {
   background: var(--tag-bg);
