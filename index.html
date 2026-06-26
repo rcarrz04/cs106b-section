@@ -91,6 +91,13 @@
       <!-- Resources -->
       <div class="section-block" id="resources">
         <div class="section-label">Resources</div>
+        <a href="https://web.stanford.edu/class/archive/cs/cs106b/cs106b.1268/about_staff" class="resource-item" target="_blank" rel="noopener">
+          <div class="resource-icon">👥</div>
+          <div>
+            <div>Course Staff &amp; OH</div>
+            <div class="resource-desc">Instructors and office hours schedule</div>
+          </div>
+        </a>
         <a href="https://en.cppreference.com/" class="resource-item" target="_blank" rel="noopener">
           <div class="resource-icon">C++</div>
           <div>
@@ -184,11 +191,14 @@
               }, i * 30);
             })(i);
           }
+          var retroEl = document.createElement('div');
+          retroEl.className = 'retro-goal-border';
+          document.body.appendChild(retroEl);
           var goalEl = document.createElement('div');
           goalEl.className = 'goal-overlay';
           goalEl.innerHTML = '<div class="goal-text">⚽ GOAL!</div>';
           document.body.appendChild(goalEl);
-          setTimeout(function () { goalEl.remove(); }, 1800);
+          setTimeout(function () { goalEl.remove(); retroEl.remove(); }, 1800);
         }
       });
     }
