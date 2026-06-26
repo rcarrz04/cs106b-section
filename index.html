@@ -131,6 +131,38 @@
       </div>
 
     </main>
+
+    <!-- Feedback Panel -->
+    <div class="feedback-panel" id="feedback-panel" aria-label="Feedback panel">
+      <div class="panel-header">
+        <span class="section-label">Feedback</span>
+        <button class="panel-close" id="panel-close-btn" aria-label="Close feedback panel">✕</button>
+      </div>
+
+      <div class="panel-week-badge">
+        <span class="panel-week-dot"></span>
+        <span id="panel-week-label">Loading…</span>
+      </div>
+
+      <div>
+        <label class="panel-field-label" for="topic-select">What should we focus on this week?</label>
+        <span class="panel-field-sub">Pick the topic you'd most like to drill in section.</span>
+        <select class="panel-select" id="topic-select"></select>
+      </div>
+
+      <hr class="divider" style="margin: 0;">
+
+      <div>
+        <label class="panel-field-label" for="anon-feedback">Anything else on your mind?</label>
+        <span class="panel-field-sub">Anonymous. About section, the material, me — anything relevant.</span>
+        <textarea class="panel-textarea" id="anon-feedback" placeholder="e.g. I'm confused about pointers, or section pace feels too fast…"></textarea>
+      </div>
+
+      <button class="panel-submit" id="panel-submit-btn">Submit feedback →</button>
+
+      <p class="panel-anon-note">🔒 Responses are anonymous and go directly to a private Google Sheet.</p>
+    </div>
+
   </div>
   <script>
   (function () {
