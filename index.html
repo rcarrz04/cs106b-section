@@ -165,6 +165,55 @@
 
   </div>
   <script>
+  var FEEDBACK_ENDPOINT = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+
+  var WEEK_DATA = [
+    {
+      week: 1, label: 'Week 1 · Jun 22–26',
+      start: new Date('2026-06-22'), end: new Date('2026-06-28'),
+      topics: ['C++ Fundamentals', 'Pass-by-Reference & Strings', 'Vectors & Grids', 'Testing Basics']
+    },
+    {
+      week: 2, label: 'Week 2 · Jun 29–Jul 3',
+      start: new Date('2026-06-29'), end: new Date('2026-07-05'),
+      topics: ['Stacks & Queues', 'Sets & Maps', 'Big-O & Algorithm Analysis']
+    },
+    {
+      week: 3, label: 'Week 3 · Jul 6–10',
+      start: new Date('2026-07-06'), end: new Date('2026-07-12'),
+      topics: ['Introduction to Recursion', 'More Recursion', 'Fractals & Recursive Problem Solving', 'Recursive Backtracking']
+    },
+    {
+      week: 4, label: 'Week 4 · Jul 13–17',
+      start: new Date('2026-07-13'), end: new Date('2026-07-19'),
+      topics: ['Recursive Backtracking & Enumeration', 'Sorting Algorithms', 'Review & Problem Solving']
+    },
+    {
+      week: 5, label: 'Week 5 · Jul 20–24',
+      start: new Date('2026-07-20'), end: new Date('2026-07-26'),
+      topics: ['Object-Oriented Programming', 'Pointers & Arrays', 'Dynamic Memory Management', 'Priority Queues & Binary Heaps']
+    },
+    {
+      week: 6, label: 'Week 6 · Jul 27–31',
+      start: new Date('2026-07-27'), end: new Date('2026-08-02'),
+      topics: ['Introduction to Linked Lists', 'More Linked Lists', 'Trees', 'Binary Search Trees']
+    }
+  ];
+
+  var FALLBACK_WEEK = {
+    week: 0, label: 'General',
+    topics: ['General Questions', 'Lecture Material', 'Assignments', 'Other']
+  };
+
+  function getCurrentWeekData() {
+    var now = new Date();
+    now.setHours(0, 0, 0, 0);
+    for (var i = 0; i < WEEK_DATA.length; i++) {
+      if (now >= WEEK_DATA[i].start && now <= WEEK_DATA[i].end) return WEEK_DATA[i];
+    }
+    return FALLBACK_WEEK;
+  }
+
   (function () {
     var FLAGS = ['🇧🇷','🇦🇷','🇲🇽','🇺🇸','🇨🇦','🇩🇪','🇫🇷','🇵🇹','🇯🇵','🇰🇷','🇲🇦','🇸🇳'];
 
