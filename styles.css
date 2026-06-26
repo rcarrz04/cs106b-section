@@ -556,6 +556,8 @@ body.feedback-open .feedback-panel {
 
 /* ── Feedback Edge Tab ── */
 .feedback-tab {
+  border: none;
+  appearance: none;
   position: fixed;
   right: 0;
   top: 50%;
