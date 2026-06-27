@@ -133,7 +133,7 @@
     </main>
 
     <!-- Feedback Panel -->
-    <div class="feedback-panel" id="feedback-panel" aria-label="Feedback panel">
+    <div class="feedback-panel" id="feedback-panel" role="dialog" aria-label="Feedback panel" aria-modal="true">
       <div class="panel-header">
         <span class="section-label">Feedback</span>
         <button class="panel-close" id="panel-close-btn" aria-label="Close feedback panel">✕</button>
@@ -170,32 +170,32 @@
   var WEEK_DATA = [
     {
       week: 1, label: 'Week 1 · Jun 22–26',
-      start: new Date('2026-06-22'), end: new Date('2026-06-28'),
+      start: new Date(2026, 5, 22), end: new Date(2026, 5, 28),
       topics: ['C++ Fundamentals', 'Pass-by-Reference & Strings', 'Vectors & Grids', 'Testing Basics']
     },
     {
       week: 2, label: 'Week 2 · Jun 29–Jul 3',
-      start: new Date('2026-06-29'), end: new Date('2026-07-05'),
+      start: new Date(2026, 5, 29), end: new Date(2026, 6, 5),
       topics: ['Stacks & Queues', 'Sets & Maps', 'Big-O & Algorithm Analysis']
     },
     {
       week: 3, label: 'Week 3 · Jul 6–10',
-      start: new Date('2026-07-06'), end: new Date('2026-07-12'),
+      start: new Date(2026, 6, 6), end: new Date(2026, 6, 12),
       topics: ['Introduction to Recursion', 'More Recursion', 'Fractals & Recursive Problem Solving', 'Recursive Backtracking']
     },
     {
       week: 4, label: 'Week 4 · Jul 13–17',
-      start: new Date('2026-07-13'), end: new Date('2026-07-19'),
+      start: new Date(2026, 6, 13), end: new Date(2026, 6, 19),
       topics: ['Recursive Backtracking & Enumeration', 'Sorting Algorithms', 'Review & Problem Solving']
     },
     {
       week: 5, label: 'Week 5 · Jul 20–24',
-      start: new Date('2026-07-20'), end: new Date('2026-07-26'),
+      start: new Date(2026, 6, 20), end: new Date(2026, 6, 26),
       topics: ['Object-Oriented Programming', 'Pointers & Arrays', 'Dynamic Memory Management', 'Priority Queues & Binary Heaps']
     },
     {
       week: 6, label: 'Week 6 · Jul 27–31',
-      start: new Date('2026-07-27'), end: new Date('2026-08-02'),
+      start: new Date(2026, 6, 27), end: new Date(2026, 7, 2),
       topics: ['Introduction to Linked Lists', 'More Linked Lists', 'Trees', 'Binary Search Trees']
     }
   ];
@@ -488,7 +488,10 @@
   // ── Feedback Panel ─────────────────────────────────────────────────
   (function () {
     function togglePanel() {
-      document.body.classList.toggle('feedback-open');
+      var open = document.body.classList.toggle('feedback-open');
+      document.getElementById('feedback-tab').setAttribute(
+        'aria-label', open ? 'Close feedback panel' : 'Open feedback panel'
+      );
     }
 
     function initPanel() {
@@ -510,6 +513,11 @@
       togglePanel();
     });
     document.getElementById('panel-close-btn').addEventListener('click', togglePanel);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && document.body.classList.contains('feedback-open')) {
+        togglePanel();
+      }
+    });
 
     initPanel();
 
@@ -529,11 +537,13 @@
       body.append('feedback', feedback);
 
       fetch(FEEDBACK_ENDPOINT, { method: 'POST', body: body })
-        .then(function () {
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
           document.getElementById('feedback-panel').innerHTML =
             '<div class="panel-success">' +
               '<div class="panel-success-icon">✓</div>' +
               '<p>Thanks — got it.</p>' +
+              '<button class="panel-close" onclick="document.body.classList.remove(\'feedback-open\')" aria-label="Close feedback panel">✕</button>' +
             '</div>';
         })
         .catch(function () {
