@@ -148,6 +148,7 @@
         <label class="panel-field-label" for="topic-select">What should we focus on this week?</label>
         <span class="panel-field-sub">Pick the topic you'd most like to drill in section.</span>
         <select class="panel-select" id="topic-select"></select>
+        <input class="panel-other-input" id="topic-other" type="text" placeholder="Describe your topic…" style="display:none;" aria-label="Other topic">
       </div>
 
       <hr class="divider" style="margin: 0;">
@@ -505,6 +506,18 @@
         opt.textContent = t;
         select.appendChild(opt);
       });
+      var otherOpt = document.createElement('option');
+      otherOpt.value = 'Other';
+      otherOpt.textContent = 'Other…';
+      select.appendChild(otherOpt);
+
+      var otherInput = document.getElementById('topic-other');
+      otherInput.style.display = 'none';
+      otherInput.value = '';
+      select.addEventListener('change', function () {
+        otherInput.style.display = this.value === 'Other' ? 'block' : 'none';
+        if (this.value === 'Other') otherInput.focus();
+      });
     }
 
     document.getElementById('feedback-tab').addEventListener('click', togglePanel);
@@ -526,6 +539,10 @@
       var originalHTML = panel.innerHTML;
       var btn = document.getElementById('panel-submit-btn');
       var topic = document.getElementById('topic-select').value;
+      if (topic === 'Other') {
+        var custom = document.getElementById('topic-other').value.trim();
+        topic = custom ? 'Other: ' + custom : 'Other';
+      }
       var feedback = document.getElementById('anon-feedback').value.trim();
       var weekData = getCurrentWeekData();
 

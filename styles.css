@@ -664,6 +664,21 @@ body.feedback-open .feedback-nav-link::after { content: ' ◀'; }
 .panel-select:focus { outline: none; border-color: var(--accent); }
 .panel-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
 
+.panel-other-input {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 6px 8px;
+  border: 1px solid var(--divider);
+  border-radius: 4px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.72rem;
+  color: var(--body-text);
+  background: var(--bg);
+}
+.panel-other-input::placeholder { color: var(--muted); }
+.panel-other-input:focus { outline: none; border-color: var(--accent); }
+.panel-other-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
+
 .panel-textarea {
   width: 100%;
   padding: 7px 8px;
