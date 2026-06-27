@@ -536,9 +536,8 @@
       body.append('topic', topic);
       body.append('feedback', feedback);
 
-      fetch(FEEDBACK_ENDPOINT, { method: 'POST', body: body })
-        .then(function (res) {
-          if (!res.ok) throw new Error('HTTP ' + res.status);
+      fetch(FEEDBACK_ENDPOINT, { method: 'POST', body: body, mode: 'no-cors' })
+        .then(function () {
           document.getElementById('feedback-panel').innerHTML =
             '<div class="panel-success">' +
               '<div class="panel-success-icon">✓</div>' +
