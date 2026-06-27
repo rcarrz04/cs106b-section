@@ -565,11 +565,11 @@ body.feedback-open .feedback-panel {
   background: var(--accent);
   color: #fff;
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 0.68rem;
+  font-size: 1.36rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 1rem 0.5rem;
+  padding: 2rem 1rem;
   border-radius: 4px 0 0 4px;
   writing-mode: vertical-rl;
   cursor: pointer;
@@ -742,3 +742,17 @@ body.feedback-open .feedback-nav-link::after { content: ' ◀'; }
   color: #DC2626;
   text-align: center;
 }
+
+.panel-resubmit {
+  background: #E7E5E4;
+  color: #57534E;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: filter 0.12s;
+}
+
+.panel-resubmit:hover { filter: brightness(0.93); }

@@ -522,6 +522,8 @@
     initPanel();
 
     document.getElementById('panel-submit-btn').addEventListener('click', function () {
+      var panel = document.getElementById('feedback-panel');
+      var originalHTML = panel.innerHTML;
       var btn = document.getElementById('panel-submit-btn');
       var topic = document.getElementById('topic-select').value;
       var feedback = document.getElementById('anon-feedback').value.trim();
@@ -538,12 +540,17 @@
 
       fetch(FEEDBACK_ENDPOINT, { method: 'POST', body: body, mode: 'no-cors' })
         .then(function () {
-          document.getElementById('feedback-panel').innerHTML =
+          panel.innerHTML =
             '<div class="panel-success">' +
               '<div class="panel-success-icon">✓</div>' +
               '<p>Thanks — got it.</p>' +
-              '<button class="panel-close" onclick="document.body.classList.remove(\'feedback-open\')" aria-label="Close feedback panel">✕</button>' +
+              '<button class="panel-resubmit" id="panel-resubmit-btn">Submit another →</button>' +
             '</div>';
+          document.getElementById('panel-resubmit-btn').addEventListener('click', function () {
+            panel.innerHTML = originalHTML;
+            document.getElementById('panel-close-btn').addEventListener('click', togglePanel);
+            initPanel();
+          });
         })
         .catch(function () {
           btn.disabled = false;
