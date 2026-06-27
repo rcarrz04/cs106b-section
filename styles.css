@@ -565,11 +565,11 @@ body.feedback-open .feedback-panel {
   background: var(--accent);
   color: #fff;
   font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 1.36rem;
+  font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 2rem 1rem;
+  padding: 1rem 0.5rem;
   border-radius: 4px 0 0 4px;
   writing-mode: vertical-rl;
   cursor: pointer;
